@@ -23,49 +23,39 @@ class listaTransf extends StatelessWidget {
     // TODO: implement build
     return Column(
       children: [
+        ItemTransf(Transferencia(valor: 2000.00, numeroConta: 0001)),
+        ItemTransf(Transferencia(valor: 3000.00, numeroConta: 0002)),
+        ItemTransf(Transferencia(valor: 4000.00, numeroConta: 0003)),
         ItemTransf(
-          valor: '300.00',
-          numeroConta: '2020',
+          Transferencia(valor: 5000.00, numeroConta: 00014),
         ),
-        ItemTransf(
-          valor: '300.00',
-          numeroConta: '2020',
-        ),
-        ItemTransf(
-          valor: '500.00',
-          numeroConta: '2021',
-        ),
-        ItemTransf(
-          valor: '600.00',
-          numeroConta: '2022',
-        ),
-        ItemTransf(
-          valor: '555.00',
-          numeroConta: '2023',
-        ),
-        ItemTransf(
-          valor: '600.00',
-          numeroConta: '2024',
-        ),
+        ItemTransf(Transferencia(valor: 1000.00, numeroConta: 0055)),
+        ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
       ],
     );
   }
 }
 
 class ItemTransf extends StatelessWidget {
-  final String valor;
-  final String numeroConta;
+  final Transferencia _transf;
 
-  ItemTransf({required this.valor, required this.numeroConta});
+  ItemTransf(this._transf);
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
         leading: Icon(Icons.monetization_on),
-        title: Text(valor),
-        subtitle: Text(numeroConta),
+        title: Text(_transf.valor.toString()),
+        subtitle: Text(_transf.numeroConta.toString()),
       ),
     );
   }
+}
+
+class Transferencia {
+  final double valor;
+  final double numeroConta;
+
+  Transferencia({required this.valor, required this.numeroConta});
 }
