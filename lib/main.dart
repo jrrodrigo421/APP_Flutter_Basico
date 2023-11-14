@@ -39,7 +39,8 @@ class FormularioTransferencia extends StatelessWidget {
             icone: Icons.monetization_on,
           ),
           ElevatedButton(
-              onPressed: () => _criaTransferencia(context), child: Text('Confirmar'))
+              onPressed: () => _criaTransferencia(context),
+              child: Text('Confirmar'))
         ],
       ),
     );
@@ -52,7 +53,7 @@ class FormularioTransferencia extends StatelessWidget {
       final transferenciaCriada =
           Transferencia(valor: valor, numeroConta: numeroConta);
       debugPrint('$transferenciaCriada');
-      Navigator.pop(context,transferenciaCriada);
+      Navigator.pop(context, transferenciaCriada);
     }
   }
 }
@@ -86,38 +87,26 @@ class Editor extends StatelessWidget {
 }
 
 class ListaTransf extends StatelessWidget {
+  final List<Transferencia> _transferencia = [];
+
   @override
   Widget build(BuildContext context) {
+    _transferencia.add(Transferencia(valor: 3000, numeroConta: 2121));
     return Scaffold(
       appBar: AppBar(
         title: Text('Transfências'),
       ),
-      body: Column(
-        children: [
-          ItemTransf(Transferencia(valor: 2000.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 3000.00, numeroConta: 0002)),
-          ItemTransf(Transferencia(valor: 4000.00, numeroConta: 0003)),
-          ItemTransf(Transferencia(valor: 5000.00, numeroConta: 00014)),
-          ItemTransf(Transferencia(valor: 1000.00, numeroConta: 0055)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-          ItemTransf(Transferencia(valor: 20800.00, numeroConta: 0001)),
-        ],
-      ),
+      body: ListView.builder(
+          itemCount: _transferencia.length,
+          itemBuilder: (BuildContext context, int index) {
+            final transferencia = _transferencia[index];
+            return ItemTransf(transferencia);
+
+          }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final Future<dynamic> future = Navigator.push(context, MaterialPageRoute(builder: (context){
+          final Future<dynamic> future =
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
             return FormularioTransferencia();
           }));
           future.then((transferenciaRecebida) {
