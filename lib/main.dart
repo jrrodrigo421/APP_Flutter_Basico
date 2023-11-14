@@ -39,19 +39,20 @@ class FormularioTransferencia extends StatelessWidget {
             icone: Icons.monetization_on,
           ),
           ElevatedButton(
-              onPressed: () => _criaTransferencia(), child: Text('Confirmar'))
+              onPressed: () => _criaTransferencia(context), child: Text('Confirmar'))
         ],
       ),
     );
   }
 
-  void _criaTransferencia() {
+  void _criaTransferencia(context) {
     final int? numeroConta = int.tryParse(_controladorCampoNumeroConta.text);
     final double? valor = double.tryParse(_controladorCampoValor.text);
     if (numeroConta != null && valor != null) {
       final transferenciaCriada =
           Transferencia(valor: valor, numeroConta: numeroConta);
       debugPrint('$transferenciaCriada');
+      Navigator.pop(context,transferenciaCriada);
     }
   }
 }
@@ -103,9 +104,13 @@ class ListaTransf extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context){
+          final Future<dynamic> future = Navigator.push(context, MaterialPageRoute(builder: (context){
             return FormularioTransferencia();
           }));
+          future.then((transferenciaRecebida) {
+            print('Vau chegar grana');
+            debugPrint(transferenciaRecebida.toString());
+          });
         },
         child: Icon(Icons.add),
       ),
