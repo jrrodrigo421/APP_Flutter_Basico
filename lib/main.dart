@@ -7,9 +7,8 @@ void main() {
 class ByteBankApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: ListaTransf(),
-      ),
+      theme: ThemeData.dark(),
+     home: ListaTransf(),
     );
   }
 }
@@ -25,23 +24,25 @@ class FormularioTransferencia extends StatelessWidget {
       appBar: AppBar(
         title: Text('Criando Transferências'),
       ),
-      body: Column(
-        children: [
-          Editor(
-            controlador: _controladorCampoNumeroConta,
-            rotulo: "Número da conta:",
-            dica: "XXXX",
-          ),
-          Editor(
-            controlador: _controladorCampoValor,
-            rotulo: "Valor:",
-            dica: "0.00",
-            icone: Icons.monetization_on,
-          ),
-          ElevatedButton(
-              onPressed: () => _criaTransferencia(context),
-              child: Text('Confirmar'))
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Editor(
+              controlador: _controladorCampoNumeroConta,
+              rotulo: "Número da conta:",
+              dica: "XXXX",
+            ),
+            Editor(
+              controlador: _controladorCampoValor,
+              rotulo: "Valor:",
+              dica: "0.00",
+              icone: Icons.monetization_on,
+            ),
+            ElevatedButton(
+                onPressed: () => _criaTransferencia(context),
+                child: Text('Confirmar'))
+          ],
+        ),
       ),
     );
   }
@@ -113,7 +114,7 @@ class ListaTransferenciaState extends State<ListaTransf> {
         onPressed: () {
           final Future<dynamic> future =
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return FormularioTransferencia();
+            return FormularioTransferencia(); 
           }));
           future.then((transferenciaRecebida) {
             print('Vau chegar grana');
