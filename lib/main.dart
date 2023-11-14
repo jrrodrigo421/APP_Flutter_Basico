@@ -105,7 +105,7 @@ class ListaTransferenciaState extends State<ListaTransf> {
       ),
       body: ListView.builder(
           itemCount: widget._transferencia.length,
-          itemBuilder: (BuildContext context, int index) {
+          itemBuilder: ( context,  index) {
             final transferencia = widget._transferencia[index];
             return ItemTransf(transferencia);
           }),
@@ -118,7 +118,13 @@ class ListaTransferenciaState extends State<ListaTransf> {
           future.then((transferenciaRecebida) {
             print('Vau chegar grana');
             debugPrint(transferenciaRecebida.toString());
-            widget._transferencia.add(transferenciaRecebida);
+
+            setState(() {
+              widget._transferencia.add(transferenciaRecebida);
+
+            });
+
+            print('Printando widget ${widget._transferencia}');
           });
         },
         child: Icon(Icons.add),
